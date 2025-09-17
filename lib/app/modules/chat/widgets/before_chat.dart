@@ -77,6 +77,7 @@ class BeforeChat extends GetView<ChatController> {
             ],
           ),
         ),
+          const SizedBox(height: 12),
       ],
     );
   }

@@ -8,4 +8,5 @@ class Images {
       static const String findDentist = 'assets/images/.png';
       static const String findDoctor = 'assets/images/.png';
       static const String avatar = 'assets/images/.png';
+      static const String profileImage1 = 'assets/images/profile.png';
 }

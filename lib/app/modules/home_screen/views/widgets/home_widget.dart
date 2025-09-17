@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funds_32bj_poc/app/common/const/assets_const/icon_const.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -9,22 +11,38 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  // simple card model
   final List<_CardItem> items = const [
-    _CardItem(title: 'Training', subtitle: 'Take your career to the next level', color: Color(0xFF8E63FF)),
-    _CardItem(title: 'Legal', subtitle: 'Legal advice & representation', color: Color(0xFF2E9AAE)),
-    _CardItem(title: 'Retirement', subtitle: 'Plan for the future', color: Color(0xFFEF6C6C)),
-    _CardItem(title: 'Health', subtitle: 'Your Plan: Anthem Blue Cross – Family Coverage', color: Color(0xFF158C5B)),
+    _CardItem(
+      title: 'Training',
+      subtitle:
+          'Take your career to the next level \nby making the most of your \nTraining Fund. ',
+      color: Color(0xff7748fb),
+      iconPath: IconsConst.medicalIcon1,
+    ),
+    _CardItem(
+      title: 'Legal',
+      subtitle:
+          'The 32BJ Legal Services Fund provides \nlegal advice and representation to you \nand your dependents.',
+      color: Color(0xff217091),
+      iconPath: IconsConst.legalIcon1,
+    ),
+    _CardItem(
+      title: 'Retirement',
+      subtitle:
+          '401(k) Savings Snapshot (as of \n09/15/2025). \nBalance: \$12,854.63',
+      color: Color(0xff324762),
+      iconPath: IconsConst.retirementIcon1,
+    ),
+    _CardItem(
+      title: 'Health',
+      subtitle: 'Your Plan: Anthem Blue Cross – Family Coverage',
+      color: Color(0xff4a6cc5),
+      iconPath: IconsConst.healthIcon1,
+    ),
   ];
 
-  int selectedIndex = -1;
-
-  // visual constants (tweak these)
-  final double baseTop = 120;
-  final double collapsedHeight = 140;
-  final double expandedHeight = 340;
-  final double overlap = 36;
-  final Duration animDuration = const Duration(milliseconds: 350);
+  // 👈 set to 0 to expand Training card by default
+  int selectedIndex = 0;
 
   void _onTapCard(int index) {
     setState(() {
@@ -32,263 +50,272 @@ class _HomeWidgetState extends State<HomeWidget> {
     });
   }
 
-  void _collapse() {
-    if (selectedIndex != -1) setState(() => selectedIndex = -1);
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    final screenW = MediaQuery.of(context).size.width;
+@override
+Widget build(BuildContext context) {
+  const collapsedHeight = 90.0;
+  const expandedHeight = 300.0;
+  const overlap = 75.0;
 
-    return Scaffold(
-      // ignore top system bar visuals as user requested earlier
-      backgroundColor: const Color(0xFFF6F6F6),
-      body: GestureDetector(
-        // tapping outside collapses
-        onTap: _collapse,
-        child: Stack(
-          children: [
-            // header region (avatar + greeting)
-            Positioned(
-              top: 16,
-              left: 16,
-              right: 16,
-              child: _buildHeader(),
-            ),
+  final collapsedStackHeight =
+      collapsedHeight + ((items.length - 1) * overlap);
 
-            // stack of cards
-            ...List.generate(items.length, (i) {
-              final item = items[i];
+  final totalHeight = collapsedStackHeight +
+      (selectedIndex == -1 ? 0 : (expandedHeight - collapsedHeight));
 
-              // compute positions and heights depending on selectedIndex
-              double top;
-              double height;
-              double left = 18;
-              double right = 18;
+  return AnimatedContainer(
+    duration: const Duration(milliseconds: 400),
+    curve: Curves.easeInOut,
+    height: totalHeight,
+    child: Stack(
+      children: List.generate(items.length, (i) {
+        final isExpanded = selectedIndex == i;
 
-              if (selectedIndex == -1) {
-                // all collapsed stacked
-                top = baseTop + i * overlap;
-                height = collapsedHeight;
-              } else {
-                // one is selected
-                if (i < selectedIndex) {
-                  top = baseTop + i * overlap;
-                  height = collapsedHeight;
-                } else if (i == selectedIndex) {
-                  // selected: raise a bit and expand
-                  top = baseTop + i * overlap - 12;
-                  height = expandedHeight;
-                  left = 12; // make it a bit wider
-                  right = 12;
-                } else {
-                  // cards after selected are pushed down by the expansion delta
-                  final delta = (expandedHeight - collapsedHeight);
-                  top = baseTop + i * overlap + delta;
-                  height = collapsedHeight;
-                }
-              }
+        double topOffset = i * overlap;
+        if (selectedIndex != -1 && i > selectedIndex) {
+          topOffset += (expandedHeight - collapsedHeight);
+        }
 
-              // to ensure higher z-order for later cards (so top-most visually last)
-              final zIndex = i;
-
-              return AnimatedPositioned(
-                key: ValueKey('card_$i'),
-                duration: animDuration,
+        return AnimatedPositioned(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          top: topOffset,
+          left: 0,
+          right: 0,
+          child: GestureDetector(
+            onTap: () => _onTapCard(i),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 350),
                 curve: Curves.easeInOut,
-                top: top,
-                left: left,
-                right: right,
-                height: height,
-                child: IgnorePointer(
-                  // Prevent taps passing through when expanded - individual GestureDetectors will handle
-                  ignoring: false,
-                  child: Material(
-                    // use Material so elevation/shadows render nicely
-                    color: Colors.transparent,
-                    elevation: 0,
-                    child: GestureDetector(
-                      onTap: () {
-                        // prevent parent GestureDetector collapse from running (tap should interact with card)
-                        // (GestureDetector under Stack handles tap directly)
-                        _onTapCard(i);
-                      },
-                      child: AnimatedCard(
-                        item: item,
-                        isExpanded: selectedIndex == i,
-                        animDuration: animDuration,
-                      ),
-                    ),
-                  ),
+                height: isExpanded ? expandedHeight : collapsedHeight,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: items[i].color,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft:Radius.circular(i==(items.length-1)?  16:0) ,
+                    bottomRight: Radius.circular(i==(items.length-1)?16:0),
+      topLeft: Radius.circular(16),
+      topRight: Radius.circular(16),),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    )
+                  ],
                 ),
-              );
-            }),
-
-            // optional: a small bottom safe area spacer so last card doesn't get fully hidden
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: SizedBox(height: MediaQuery.of(context).padding.bottom + 12),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+                child: Stack(
+                  children: [
+                    // SingleChildScrollView wraps the whole column
+                    // Inside AnimatedContainer -> child: Stack -> SingleChildScrollView
+SingleChildScrollView(
+  physics: isExpanded
+      ? const BouncingScrollPhysics()
+      : const NeverScrollableScrollPhysics(),
+  child: ConstrainedBox(
+    constraints: BoxConstraints(
+      minHeight: isExpanded ? expandedHeight - 36 : collapsedHeight - 36,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const CircleAvatar(radius: 22, backgroundColor: Colors.grey, child: Icon(Icons.person, color: Colors.white)),
-        const SizedBox(width: 12),
+        // Top content: Title + Subtitle
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Good Morning,', style: TextStyle(fontSize: 13, color: Colors.black54)),
-            SizedBox(height: 2),
-            Text('Maria Alax!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+          children: [
+            Text(
+              items[i].title,
+              style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+            if (isExpanded) ...[
+              const SizedBox(height: 8),
+              Text(
+                items[i].subtitle,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ],
         ),
-        const Spacer(),
-        Container(
-          decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-          child: IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_none)),
-        ),
-      ],
-    );
-  }
-}
 
-/// data holder
-class _CardItem {
-  final String title;
-  final String subtitle;
-  final Color color;
-  const _CardItem({required this.title, required this.subtitle, required this.color});
-}
-
-/// AnimatedCard: content + subtle shadow + inner layout
-class AnimatedCard extends StatelessWidget {
-  final _CardItem item;
-  final bool isExpanded;
-  final Duration animDuration;
-  const AnimatedCard({
-    Key? key,
-    required this.item,
-    required this.isExpanded,
-    required this.animDuration,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // animate roundness, elevation, content opacity
-    final borderRadius = BorderRadius.circular(18);
-    return AnimatedContainer(
-      duration: animDuration,
-      curve: Curves.easeInOut,
-      decoration: BoxDecoration(
-        color: item.color,
-        borderRadius: borderRadius,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 10, offset: const Offset(0, 4)),
-        ],
+        // Bottom content: View More + Icon (always sticks to bottom for non-health cards)
+        if (isExpanded)
+          if (items[i].title != 'Health') ...[
+            // Row with bottom text + icon
+Row(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    const TiltedArrowChip(),
+    const SizedBox(width: 10),
+    Text(
+      items[i].title == 'Training'
+          ? "Go to the Training Dashboard" // Custom text for Training
+          : "View more info",          // Default for others
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+        fontSize: 15,
       ),
-      padding: const EdgeInsets.all(18),
-      child: Stack(
-        children: [
-          // text column
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AnimatedDefaultTextStyle(
-                style: TextStyle(
-                  fontSize: isExpanded ? 36 : 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  
-                ),
-                child: SizedBox(),
-                duration: animDuration,
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: AnimatedOpacity(
-                  duration: animDuration,
-                  opacity: isExpanded ? 1 : 0.95,
-                  child: Text(
-                    item.subtitle,
-                    style: const TextStyle(color: Colors.white70, fontSize: 15),
+    ),
+    const Spacer(),
+    SvgPicture.asset(
+      items[i].iconPath,
+      width: 70,
+      height: 70,
+    ),
+  ],
+),
+
+          ]
+          else ...[
+            // Health card keeps original layout with tip
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const TiltedArrowChip(),
+                const SizedBox(width: 10),
+                const Text(
+                  "View more info",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
                   ),
                 ),
+                const Spacer(),
+                SvgPicture.asset(
+                  items[i].iconPath,
+                  width: 70,
+                  height: 70,
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.orange, width: 1.2),
               ),
-              const SizedBox(height: 6),
-              // arrow chip + action label (only small when collapsed)
-              Row(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TiltedArrowChip(),
-                  const SizedBox(width: 12),
-                  AnimatedOpacity(
-                    duration: animDuration,
-                    opacity: isExpanded ? 1 : 0.9,
-                    child: Text(
-                      isExpanded ? 'Go to the ${item.title.toLowerCase()} dashboard' : 'Go to the ${item.title.toLowerCase()}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                  SvgPicture.asset(IconsConst.lightIcon1),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500),
+                        children: [
+                          TextSpan(
+                            text: "TIP: ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text:
+                                "New in 2025! 32BJ Health Fund Centers of Excellence (COE) for Surgery. ",
+                          ),
+                          TextSpan(
+                            text: "See more",
+                            style: TextStyle(
+                              color: Color(0XFF5A2D7E),
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
+      ],
+    ),
+  ),
+)
 
-          // placeholder illustration aligned bottom-right
-          Positioned(
-            right: 6,
-            bottom: 6,
-            child: AnimatedOpacity(
-              duration: animDuration,
-              opacity: isExpanded ? 1 : 0.9,
-              child: SizedBox(
-                width: isExpanded ? 120 : 86,
-                height: isExpanded ? 120 : 86,
-                // replace with your Image.asset(...) later
-                child: Icon(Icons.image, size: isExpanded ? 72 : 48, color: Colors.white70),
+                  ],
+                ),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        );
+      }),
+    ),
+  );
+}
 }
 
-/// small circular tilted arrow like in screenshot.
-/// Quick implementation using Icon + Transform.rotate tuned to ~30deg clockwise.
+class _CardItem {
+  final String title;
+  final String subtitle;
+  final Color color;
+  final String iconPath; // 👈 new field
+
+  const _CardItem({
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.iconPath,
+
+  });
+}
+
 class TiltedArrowChip extends StatelessWidget {
   final double size;
   final double angleDegrees;
   final Color bg;
-  final Color arrowColor;
+  final String arrowAsset;
 
   const TiltedArrowChip({
     Key? key,
-    this.size = 46,
-    this.angleDegrees = 30,
+    this.size = 45,
+    this.angleDegrees = -10, // 👈 rotate to point ↗
     this.bg = Colors.white,
-    this.arrowColor = const Color(0xFFFFA726),
+    this.arrowAsset = IconsConst.arrowIcon1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isSvg = arrowAsset.toLowerCase().endsWith('.svg');
+
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(color: bg, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: bg,
+        shape: BoxShape.circle,
+      ),
       child: Center(
         child: Transform.rotate(
-          angle: angleDegrees * pi / 180,
-          child: Icon(Icons.arrow_upward, color: arrowColor, size: size * 0.46),
+          angle: angleDegrees * pi / 180, // convert to radians
+          child: isSvg
+              ? SvgPicture.asset(
+                  arrowAsset,
+                  width: size * 0.70, // slightly bigger for clarity
+                  height: size * 0.70,
+                )
+              : Image.asset(
+                  arrowAsset,
+                  width: size * 0.55,
+                  height: size * 0.55,
+                ),
         ),
       ),
     );

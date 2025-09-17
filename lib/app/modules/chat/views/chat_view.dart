@@ -50,7 +50,7 @@ child: Obx(() {
                     child: BeforeChat(screenHeight: screenHeight),
                   ),
           ),
-          const SizedBox(height: 12),
+        
           const ChatFooter(),
         ],
       ),
@@ -84,7 +84,7 @@ child: Obx(() {
                         ],
                       ),
                     ),
-                    bottomNavigationBar: const CustomBottomNav(currentIndex: 1),
+                    bottomNavigationBar: const CustomBottomNav(currentIndex: 3),
                   );
                 }
               }
