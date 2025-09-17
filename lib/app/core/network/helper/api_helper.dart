@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -34,6 +36,7 @@ class ApiHelper {
     try {
       final dio.Response response = await request();
       final int statusCode = response.statusCode ?? 0;
+      log("callApi statuscode - $statusCode - ${response.data}");
 
       if (_isSuccessStatus(statusCode)) {
         if (debugLog) {

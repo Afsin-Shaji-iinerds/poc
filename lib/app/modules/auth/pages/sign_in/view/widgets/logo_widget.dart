@@ -12,34 +12,42 @@ class LogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return 
-   Stack(
-     children: [
-      Image.asset(Images.siginImage,width: 440.w,height: 205.w,),
-       Positioned(
-        left: 30.w,top: 50.w,
-         child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children:  [
-                              Text(
-                                'Hello!',
-                                style: AppTextStylesNew.hBold.copyWith(color:Color(0XFF5A2D7E) ),
+   Expanded(
+     child: Container(
+      color: Color(0XFFD1BEEB),
+       child: Stack(
+         children: [
+          Image.asset(Images.siginImage,
+          //width: 450.w,
+               // height: 205.w,
+          ),
+           Positioned(
+            left: 30.w,top: 50.w,
+             child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:  [
+                                  Text(
+                                    'Hello!',
+                                    style: AppTextStylesNew.hBold.copyWith(color:Color(0XFF5A2D7E) ),
+                                  ),
+                                  SizedBox(height: 8.8.w),
+                                  Text.rich(maxLines: 1,
+                   overflow: TextOverflow.ellipsis,
+                        TextSpan(
+                          children: <InlineSpan>[
+                             TextSpan(text: 'Welcome to ', style: AppTextStylesNew.h1Regular.copyWith(color:Color(0XFF5A2D7E) )),
+                            TextSpan(text: "32BJ", style: AppTextStylesNew.h1Bold.copyWith(color:Color(0XFF5A2D7E) ),),
+                        
+                          ],
+                        ),
+                      ),
+                             
+                                ],
                               ),
-                              SizedBox(height: 8.8.w),
-                              Text.rich(maxLines: 1,
-               overflow: TextOverflow.ellipsis,
-                    TextSpan(
-                      children: <InlineSpan>[
-                         TextSpan(text: 'Welcome to ', style: AppTextStylesNew.h1Regular.copyWith(color:Color(0XFF5A2D7E) )),
-                        TextSpan(text: "32BJ", style: AppTextStylesNew.h1Bold.copyWith(color:Color(0XFF5A2D7E) ),),
-                    
-                      ],
-                    ),
-                  ),
-                         
-                            ],
-                          ),
+           ),
+         ],
        ),
-     ],
+     ),
    );
   }
 }

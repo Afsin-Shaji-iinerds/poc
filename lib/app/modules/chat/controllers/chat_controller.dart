@@ -61,7 +61,7 @@ Future<void> sendMessage(String message) async {
 
   // 3. Send API request
   final ChatRequestModel request = ChatRequestModel(
-    hkUserId: hkUserId,
+    userId: hkUserId,
     sessionId: sessionId,
     question: message,
   );
@@ -78,7 +78,7 @@ Future<void> sendMessage(String message) async {
   chatList.insert(
     0,
     ChatModel(
-      message: response?.data.message ??
+      message: response?.message ??
           "Sorry, something went wrong. Please try again.",
       sender: "bot",
       timestamp: DateTime.now(),

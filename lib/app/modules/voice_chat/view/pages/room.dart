@@ -27,6 +27,10 @@ class _RoomPageState extends State<RoomPage>
   bool isAgentSpeaking = false;
   String _transcribedText = '';
   VoiceChatController voiceChatController = Get.put(VoiceChatController());
+  Timer? _localAudioPollTimer;
+DateTime? _lastVoiceTime;
+final double _voiceThreshold = 0.03; // tune: 0.02 - 0.07
+final int _silenceWindowMs = 700; 
 
   @override
   void initState() {
@@ -65,15 +69,54 @@ class _RoomPageState extends State<RoomPage>
     if (lkPlatformIs(PlatformType.android)) {
       Hardware.instance.setSpeakerphoneOn(true);
     }
+   // start polling local audio level (100ms interval)
+_localAudioPollTimer?.cancel();
+_localAudioPollTimer = Timer.periodic(Duration(milliseconds: 100), (_) {
+  final lp = _room?.localParticipant;
+  if (lp == null) return;
+
+  // audioLevel is 0..1 (LiveKit)
+  final level = lp.audioLevel;
+  _handleLocalAudioLevel(level, lp.isMuted);
+});
+
     }catch (e, s) {
     log('Failed to connect: $e\n$s');
     // show a snackbar or UI error if you want
   }
   }
 
+
+void _handleLocalAudioLevel(double level, bool isMuted) {
+  // if mic is muted, we treat as not speaking (or run own mic analyser)
+  if (isMuted) {
+    voiceChatController.isUserSpeaking.value = false;
+    return;
+  }
+
+  if (level >= _voiceThreshold) {
+    // mark last voice timestamp
+    _lastVoiceTime = DateTime.now();
+    if (!voiceChatController.isUserSpeaking.value) {
+      voiceChatController.isUserSpeaking.value = true;
+    }
+  } else {
+    // check silence window
+    final last = _lastVoiceTime ?? DateTime.fromMillisecondsSinceEpoch(0);
+    final silence = DateTime.now().difference(last).inMilliseconds;
+    if (silence > _silenceWindowMs) {
+      if (voiceChatController.isUserSpeaking.value) {
+        voiceChatController.isUserSpeaking.value = false;
+      }
+    }
+  }
+}
+
   @override
   void dispose() {
     log("calling dispose");
+      _localAudioPollTimer?.cancel();
+
     // _room?.removeListener(_onRoomDidUpdate);
     // _listener?.dispose();
     // _room?.dispose();
@@ -126,6 +169,8 @@ class _RoomPageState extends State<RoomPage>
       //   });
       // }
     });
+
+    
   }
 
   void _onRoomDidUpdate() => _sortParticipants();
@@ -164,7 +209,7 @@ class _RoomPageState extends State<RoomPage>
       PopScope(
          canPop: false,
         child: Scaffold(
-          backgroundColor: Color(0xFFF7F7F7),
+          backgroundColor: Color(0xFFFFFFFF),
           body: _room == null
               ? const Center(child: CircularProgressIndicator())
               : SafeArea(

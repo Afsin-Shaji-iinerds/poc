@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
+import 'package:funds_32bj_poc/app/modules/voice_chat/view/pages/test.dart';
 import 'package:get/get.dart';
 import 'package:funds_32bj_poc/app/common/const/assets_const/gif_const.dart';
 
@@ -46,17 +48,30 @@ class _AnimatedBlobVisualizerState extends State<AnimatedBlobVisualizer>
           // final int targetLevel = widget.controller.isAgentSpeaking.value
           //     ? 9
           //     : 0;
-          return widget.controller.isAgentSpeaking.value
-              ? Image.asset(
-            GifConst.speaking,
-            gaplessPlayback: true, // ensures smoother transition
-            fit: BoxFit.contain,
-          )
-              : Image.asset(
-            GifConst.notSpeaking,
-
-            fit: BoxFit.contain,
-          );
+          return 
+          //  widget.controller.isAgentSpeaking.value
+          //     ?
+              RotateGifWidget(assetPath: GifConst.notSpeaking,
+              isPlaying:widget.controller.isUserSpeaking.value || widget.controller.isAgentSpeaking.value,
+              speed: 3,
+              height: 260.w,
+              )
+              
+          //      Image.asset(
+          //   GifConst.speaking,
+          //   gaplessPlayback: true, // ensures smoother transition
+          //   fit: BoxFit.contain,
+          //    height: 260.w,
+          //     width: 260.w,
+          // )
+          //     : Image.asset(
+          //   GifConst.notSpeaking,
+          //   height: 260.w,
+          //     width: 260.w,
+          //   fit: BoxFit.contain,
+          // )
+          
+          ;
           // return AnimatedBuilder(
           //   animation: _controller,
           //   builder: (_, __) {

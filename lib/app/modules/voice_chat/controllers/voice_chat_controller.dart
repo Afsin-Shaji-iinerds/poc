@@ -5,4 +5,5 @@ class VoiceChatController extends GetxController {
 
   RxString transcriptText = ''.obs;
   RxBool isAgentSpeaking = false.obs;
+    RxBool isUserSpeaking = false.obs;
 }
