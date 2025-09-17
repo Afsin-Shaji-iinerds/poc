@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:funds_32bj_poc/app/common/const/assets_const/icon_const.dart';
+import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 @override
 Widget build(BuildContext context) {
   const collapsedHeight = 90.0;
-  const expandedHeight = 300.0;
+  final expandedHeight = 330.0.w;
   const overlap = 75.0;
 
   final collapsedStackHeight =
@@ -89,7 +90,7 @@ Widget build(BuildContext context) {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 350),
                 curve: Curves.easeInOut,
-                height: isExpanded ? expandedHeight : collapsedHeight,
+                height: isExpanded ?items[i].title == 'Health'?expandedHeight+20.w :expandedHeight : collapsedHeight,
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   color: items[i].color,
@@ -124,13 +125,15 @@ SingleChildScrollView(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Top content: Title + Subtitle
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Text(
               items[i].title,
-              style: const TextStyle(
-                fontSize: 32,
+              style:  TextStyle(
+                fontSize: 40.w,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),
@@ -139,9 +142,9 @@ SingleChildScrollView(
               const SizedBox(height: 8),
               Text(
                 items[i].subtitle,
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 18.w,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -158,21 +161,24 @@ Row(
   children: [
     const TiltedArrowChip(),
     const SizedBox(width: 10),
-    Text(
-      items[i].title == 'Training'
-          ? "Go to the Training Dashboard" // Custom text for Training
-          : "View more info",          // Default for others
-      style: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-        fontSize: 15,
+    SizedBox(
+      width: 166.w,
+      child: Text(
+        items[i].title == 'Training'
+            ? "Go to the Training Dashboard" // Custom text for Training
+            : "View more info",          // Default for others
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: 15,
+        ),
       ),
     ),
     const Spacer(),
     SvgPicture.asset(
       items[i].iconPath,
-      width: 70,
-      height: 70,
+      width: 91.w,
+      height: 91.w,
     ),
   ],
 ),
@@ -285,8 +291,8 @@ class TiltedArrowChip extends StatelessWidget {
 
   const TiltedArrowChip({
     Key? key,
-    this.size = 45,
-    this.angleDegrees = -10, // 👈 rotate to point ↗
+    this.size = 55,
+    this.angleDegrees = 3, // 👈 rotate to point ↗
     this.bg = Colors.white,
     this.arrowAsset = IconsConst.arrowIcon1,
   }) : super(key: key);

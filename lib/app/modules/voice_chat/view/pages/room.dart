@@ -31,18 +31,46 @@ class _RoomPageState extends State<RoomPage>
 DateTime? _lastVoiceTime;
 final double _voiceThreshold = 0.03; // tune: 0.02 - 0.07
 final int _silenceWindowMs = 700; 
+//
+ late final ScrollController _transcriptScrollController;
+  // Choose height as you need (using your .h size util)
+  final double _transcriptBoxHeight = 240.w;
+
 
   @override
   void initState() {
     super.initState();
+       _transcriptScrollController = ScrollController();
+
+    // whenever transcriptText changes, scroll to end
+    ever(voiceChatController.transcriptText, (_) => _scrollToEnd());
     _connectToRoom();
   }
 
+    // call to scroll to the bottom of the transcript box
+  void _scrollToEnd({bool animate = true}) {
+    if (!mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_transcriptScrollController.hasClients) return;
+      final max = _transcriptScrollController.position.maxScrollExtent;
+      if (animate) {
+        _transcriptScrollController.animateTo(
+          max,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      } else {
+        _transcriptScrollController.jumpTo(max);
+      }
+    });
+  }
+
   Future<void> _connectToRoom() async {
-   try{ // const String url = 'wss://livekit.dev.virtuemed.in';
-    const String url = 'https://livekit.dev.healthkarma.ai/';
-    // const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElOTDUyWWs0bjZ6YlMiLCJleHAiOjE3NTEzMjQzMjcsIm5iZiI6MTc1MTI4MTEyNywidmlkZW8iOnsicm9vbUpvaW4iOnRydWUsInJvb20iOiJ2aXJ0dW1lZC1yb29tIiwiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlfSwic3ViIjoidmlydHVtZWQtdXNlciJ9.LKeEhhzhdGqlivVzmw42iONnwokGBw_aeJZm2uTiRbI';
-    const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODg0NzM0MzMsImlzcyI6IkFQSURHRlk4WVl5a3hnVCIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTI0NzM0MzMsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.UcYcHGL4Nebl7-sPKbDZ4uHc27u5Gi3F6vo_sTCMfRs';
+   try{ 
+   // const String url = 'https://livekit.dev.healthkarma.ai/';
+    //  const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODg0NzM0MzMsImlzcyI6IkFQSURHRlk4WVl5a3hnVCIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTI0NzM0MzMsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.UcYcHGL4Nebl7-sPKbDZ4uHc27u5Gi3F6vo_sTCMfRs';
+     const String url = 'https://livekit-mp.iinerds.com/';
+      const String token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTQwMDU5MjAsImlzcyI6IkFQSVJCZWJRalhZcGdDQiIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTgwMDU5MjAsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.K6oSxmLzOJ5DV7V5fhkR3OAS0d2hQweBhXHGidW6g4M';
 
     const roomOptions = RoomOptions(
       defaultAudioCaptureOptions: AudioCaptureOptions(autoGainControl: true),
@@ -116,7 +144,7 @@ void _handleLocalAudioLevel(double level, bool isMuted) {
   void dispose() {
     log("calling dispose");
       _localAudioPollTimer?.cancel();
-
+        _transcriptScrollController.dispose();
     // _room?.removeListener(_onRoomDidUpdate);
     // _listener?.dispose();
     // _room?.dispose();
@@ -258,23 +286,47 @@ void _handleLocalAudioLevel(double level, bool isMuted) {
                     //     },
                     //   ),
                     // ),
-                    Expanded(
-                      child: ListView(children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 10),
-                          child: Obx(() {
-                            return Text(
-                              voiceChatController.transcriptText.value,
-                              style: AppTextStylesNew.t1Regular.copyWith(
-                                color: Color(0xFF212121)
-                              ),
-                              textAlign: TextAlign.center,
-                            );
-                          }),
-                        )
-                      ],),
-                    ),
+
+                    //
+                    //
+
+                       // a fixed-height box that auto-scrolls to the end
+                SizedBox(
+                  height: _transcriptBoxHeight,
+                  child: Obx(() {
+                    return SingleChildScrollView(
+                      controller: _transcriptScrollController,
+                      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10),
+                      child: Text(
+                        voiceChatController.transcriptText.value,
+                        style: AppTextStylesNew.t1Regular.copyWith(
+                          color: Color(0xFF212121),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  }),
+                ),
+
+            //   ],
+            // ),
+                    // Expanded(
+                    //   child: ListView(children: <Widget>[
+                    //     Padding(
+                    //       padding: const EdgeInsets.symmetric(
+                    //           horizontal: 22.0, vertical: 10),
+                    //       child: Obx(() {
+                    //         return Text(
+                    //           voiceChatController.transcriptText.value,
+                    //           style: AppTextStylesNew.t1Regular.copyWith(
+                    //             color: Color(0xFF212121)
+                    //           ),
+                    //           textAlign: TextAlign.center,
+                    //         );
+                    //       }),
+                    //     )
+                    //   ],),
+                    // ),
         
                   ],
         

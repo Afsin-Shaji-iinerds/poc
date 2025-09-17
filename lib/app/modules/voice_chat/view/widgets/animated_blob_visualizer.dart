@@ -2,7 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
-import 'package:funds_32bj_poc/app/modules/voice_chat/view/pages/test.dart';
+import 'package:funds_32bj_poc/app/modules/voice_chat/view/widgets/rotate_gif.dart';
 import 'package:get/get.dart';
 import 'package:funds_32bj_poc/app/common/const/assets_const/gif_const.dart';
 
@@ -53,7 +53,7 @@ class _AnimatedBlobVisualizerState extends State<AnimatedBlobVisualizer>
           //     ?
               RotateGifWidget(assetPath: GifConst.notSpeaking,
               isPlaying:widget.controller.isUserSpeaking.value || widget.controller.isAgentSpeaking.value,
-              speed: 3,
+              speed: 5,
               height: 260.w,
               )
               
