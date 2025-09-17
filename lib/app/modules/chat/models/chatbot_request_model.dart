@@ -1,17 +1,17 @@
 class ChatRequestModel {
   ChatRequestModel({
-    required this.hkUserId,
+    required this.userId,
     required this.sessionId,
     required this.question,
   });
 
-  final String hkUserId;
+  final String userId;
   final String sessionId;
   final String question;
 
   Map<String, dynamic> toJson() => <String,dynamic >{
-        'hkUserId': hkUserId,
-        'sessionId': sessionId,
+        'user_id': userId,
+        'session_id': sessionId,
         'question': question,
       };
 }

@@ -21,7 +21,7 @@ class ChatView extends GetView<ChatController> {
     final ChatController controller = Get.put(ChatController());
 
     return Scaffold(
-      backgroundColor: AppColorsNew.darkBackground600,
+      backgroundColor: Color(0xFFF7F7F7),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -29,10 +29,10 @@ class ChatView extends GetView<ChatController> {
               child: Container(
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color:  AppColorsNew.darkBackground500,
+                  color:Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.borderGrey1,width: 0.30,
-),
+//                   border: Border.all(color: AppColors.borderGrey1,width: 0.30,
+// ),
                   
                 ),
 child: Obx(() {

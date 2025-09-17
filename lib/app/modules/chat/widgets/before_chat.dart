@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funds_32bj_poc/app/common/const/assets_const/image_const.dart';
+import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
 import 'package:get/get.dart';
 import 'package:funds_32bj_poc/app/core/theme/app_colors_new.dart';
 import 'package:funds_32bj_poc/app/core/theme/app_text_styles_new.dart';
@@ -21,13 +23,13 @@ class BeforeChat extends GetView<ChatController> {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color:  AppColorsNew.darkBackground500,
-            border: Border.all(width: 0.3, color: AppColorsNew.stroke),
+            color:  Color(0xFFE5CBF9),
+            //border: Border.all(width: 0.3, color: AppColorsNew.stroke),
             borderRadius: BorderRadius.circular(5),
           ),
           child:  Text(
             text,
-            style: AppTextStylesNew.t2Regular.copyWith(color: AppColorsNew.tertiaryColor300),
+            style: AppTextStylesNew.t2Regular.copyWith(color: Color(0xFF212121)),
           ),
         ),
       ),
@@ -45,11 +47,11 @@ class BeforeChat extends GetView<ChatController> {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 20),
-                SvgPicture.asset(IconsConst.chatbotIcon, height: 96, width: 96),
+                Image.asset(Images.chatBackground, height:158.w , width: 165.w),
                 const SizedBox(height: 10),
                 Text(
-                  "Chat with AI",
-                  style: AppTextStylesNew.t1Regular.copyWith(color: AppColorsNew.tertiaryColor300),
+                  "Chat with 32bj AI",
+                  style: AppTextStylesNew.h6Bold.copyWith( color: Color(0xFF5A2D7E),),
                 ),
               ],
             ),
@@ -60,9 +62,9 @@ class BeforeChat extends GetView<ChatController> {
           margin: const EdgeInsets.symmetric(horizontal: 12),
           padding: const EdgeInsets.all(12),
           decoration: ShapeDecoration(
-            color: AppColorsNew.darkBackground600,
+            color: Color(0xFFF4E6FF),
             shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 0.5, color: AppColorsNew.stroke),
+              side: const BorderSide(width: 0.5, color: Color(0xFFCBC1D9)),
               borderRadius: BorderRadius.circular(10),
             ),
           ),

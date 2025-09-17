@@ -101,7 +101,7 @@ class _RoomPageState extends State<RoomPage>
   } finally {
     // Only navigate after cleanup
     if (mounted) {
-      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pop(context);
     }
   }
     })..on<ParticipantEvent>((_) => _sortParticipants())..on<
@@ -164,7 +164,7 @@ class _RoomPageState extends State<RoomPage>
       PopScope(
          canPop: false,
         child: Scaffold(
-          backgroundColor: AppColorsNew.darkBackground500,
+          backgroundColor: Color(0xFFF7F7F7),
           body: _room == null
               ? const Center(child: CircularProgressIndicator())
               : SafeArea(
@@ -183,16 +183,16 @@ class _RoomPageState extends State<RoomPage>
                             controller: voiceChatController)),
                     //  SizedBox(height: 12.h),
                     // Instruction text
-         voiceChatController.transcriptText.value.isNotEmpty? SizedBox() :  Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Text(
-          "Hi there 👋 I’m your ChatBuddy.\nTell me your health concern,",
-          style: AppTextStylesNew.t1Medium.copyWith(
-            color: AppColorsNew.tertiaryColor300,
-          ),
-          textAlign: TextAlign.center,
-        ),
-            ),
+        //  voiceChatController.transcriptText.value.isNotEmpty? SizedBox() :  Padding(
+        // padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        // child: Text(
+        //   "Hi there 👋 I’m your ChatBuddy.\nTell me your health concern,",
+        //   style: AppTextStylesNew.t1Medium.copyWith(
+        //     color: AppColorsNew.tertiaryColor300,
+        //   ),
+        //   textAlign: TextAlign.center,
+        // ),
+        //     ),
             const SizedBox(height: 12),
                     // Expanded(
                     //   child: ListView.builder(
@@ -221,7 +221,9 @@ class _RoomPageState extends State<RoomPage>
                           child: Obx(() {
                             return Text(
                               voiceChatController.transcriptText.value,
-                              style: AppTextStylesNew.t1Regular,
+                              style: AppTextStylesNew.t1Regular.copyWith(
+                                color: Color(0xFF212121)
+                              ),
                               textAlign: TextAlign.center,
                             );
                           }),

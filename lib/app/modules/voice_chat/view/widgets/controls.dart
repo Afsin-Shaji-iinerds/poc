@@ -114,63 +114,65 @@ class _ControlsWidgetState extends State<ControlsWidget> {
           children: [
           Row(
             children: <Widget>[
-              // InkWell(
-              //   child: SizedBox(
-              //       width: 32,
-              //       height: 32,
-              //       child: Align(
-              //           alignment: Alignment.centerLeft,
-              //           child: SvgPicture.asset(IconsConst.arrowIcon))),
-              //   onTap: () {
-              //     Get.back();
-              //   },
-              // ),
+              InkWell(
+                onTap: _onTapDisconnect,
+                child: SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: SvgPicture.asset(IconsConst.arrowIcon,color: Color(0xFF212121),))),
+              ),
               SizedBox(
                 width: 15.w,
               ),
-              Text(
-                "AI Voice Assist",
-                style: AppTextStylesNew.h6Bold.copyWith(color: AppColorsNew.secondaryColor200),
-              ),
+          
             ],
           ),
-          IconButton(
+     
+          ],
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:  20.0),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 60.w,
+                    height: 60.w,
+                    //padding: EdgeInsets.all(5),
+                    decoration:   BoxDecoration(
+                    
+            
+                    color:isMuted?AppColorsNew.alertHighColor: Color(0xFF5A2D7E),
+                      shape: BoxShape.circle),
+                    child: IconButton(
+                    
+                      onPressed: isMuted ? _enableAudio : _disableAudio,
+                      icon: Icon(isMuted ? Icons.mic_off_outlined : Icons.mic_none_sharp,color: Color(0xFFF3F3F3),size: 32.w,),
+                      tooltip: isMuted ? 'Unmute Mic' : 'Mute Mic',
+                    ),
+                  ),
+                  // SizedBox(height: 10,),
+                  // Text(isMuted?'Tap on the Mic icon to Unmute':'Tap on the Mic icon to Mute',style: AppTextStylesNew.t2Medium.copyWith(color: AppColorsNew.tertiaryColor400),)
+                    IconButton(
             onPressed: _onTapDisconnect,
             icon: CircleAvatar(
-                      radius: 16.w,
-                      backgroundColor: AppColorsNew.darkBackground700,
+                      radius: 30.w,
+                      backgroundColor: Color(0xFF5A2D7E),
                       child: Icon(
                         Icons.close,
-                        color: AppColorsNew.tertiaryColor300,
-                        size: 20.w,
+                        color: Color(0xFFF3F3F3),
+                        size: 32.w,
                       ),
                     ),
             tooltip: 'Disconnect',
           ),
-          ],
-          ),
-          Spacer(),
-          Center(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  decoration:  const BoxDecoration(
-                  
-
-                  color: AppColorsNew.stroke,
-                    shape: BoxShape.circle),
-                  child: IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: isMuted ? _enableAudio : _disableAudio,
-                    icon: Icon(isMuted ? Icons.mic_off_outlined : Icons.mic_none_sharp,color: isMuted?AppColorsNew.alertHighColor:AppColorsNew.tertiaryColor300,size: 32,),
-                    tooltip: isMuted ? 'Unmute Mic' : 'Mute Mic',
-                  ),
-                ),
-                SizedBox(height: 10,),
-                Text(isMuted?'Tap on the Mic icon to Unmute':'Tap on the Mic icon to Mute',style: AppTextStylesNew.t2Medium.copyWith(color: AppColorsNew.tertiaryColor400),)
-              ],
+               
+                ],
+              ),
             ),
           ),
         ],

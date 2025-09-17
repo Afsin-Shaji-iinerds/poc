@@ -13,6 +13,7 @@ class IconsConst {
   static const String attachmentIcon='assets/images/attachment.svg';
   static const String microphoneIcon='assets/images/microphone.svg';
   static const String sendIcon='assets/images/send.svg';
+  static const String arrowIcon='assets/images/arrow.svg';
 
 
 

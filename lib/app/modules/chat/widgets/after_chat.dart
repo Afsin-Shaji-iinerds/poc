@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
 import 'package:get/get.dart';
 import 'package:funds_32bj_poc/app/core/theme/app_colors_new.dart';
 import 'package:funds_32bj_poc/app/core/theme/app_text_styles_new.dart';
@@ -64,9 +65,9 @@ class AfterChat extends GetView<ChatController> {
                   if (isUser) ...<Widget>[
                     CircleAvatar(
                         radius: avatarSize / 2,
-                        backgroundColor: AppColorsNew.primaryColor600, // or any bg color you want
+                        backgroundColor: Color(0xFF5A2D7E), // or any bg color you want
                         child: Text(
-                      "NU", //   _getUserInitials(),
+                      "MA", //   _getUserInitials(),
                           style: TextStyle(
                             fontSize: avatarSize * 0.4,
                             fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class AfterChat extends GetView<ChatController> {
                                 vertical: screenWidth * 0.025,
                               ),
                               decoration: ShapeDecoration(
-                                color: const Color(0xFF1F2732),
+                                color: const Color(0xFFE5CBF9),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(bubbleRadius),
@@ -108,7 +109,7 @@ class AfterChat extends GetView<ChatController> {
                                 child: Text(
                                   chat.message,
                                   style: AppTextStylesNew.t4Regular.copyWith(
-                                    color: AppColorsNew.tertiaryColor300
+                                    color: Color(0xFF212121)
                                   ),
                                 ),
                               ),
@@ -121,7 +122,7 @@ class AfterChat extends GetView<ChatController> {
                             vertical: screenWidth * 0.025,
                           ),
                           decoration: ShapeDecoration(
-                            color: AppColorsNew.darkBackground700,
+                            color: Color(0xFFE5CBF9),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(bubbleRadius),
@@ -134,16 +135,19 @@ class AfterChat extends GetView<ChatController> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              SvgPicture.asset(
-                                IconsConst.chatbotIcon,  // <-- Your SVG icon path here
+                              Container(
+                              
                                 width: textFontSize * 1.2,
                                 height: textFontSize * 1.2,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Color(0xFFFACC2E)),
+                                child: Text("32",style: TextStyle(fontSize: 12.w,color: Color(0xFFFFFFFF)),),
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                "funds_32bj_poc AI is typing",
+                                "32bj AI is typing",
                                 style: AppTextStylesNew.t4Regular.copyWith(
-                                    color: AppColorsNew.tertiaryColor300
+                                    color: Color(0xFF212121)
                                   ),
                               ),
                               const SizedBox(width: 6),
@@ -159,7 +163,7 @@ class AfterChat extends GetView<ChatController> {
                               vertical: screenWidth * 0.025,
                             ),
                             decoration: ShapeDecoration(
-                              color: AppColorsNew.darkBackground700,
+                              color: Color(0xFFE5CBF9),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(bubbleRadius),
@@ -172,7 +176,7 @@ class AfterChat extends GetView<ChatController> {
                             child: Text(
                               chat.message,
                               style: AppTextStylesNew.t4Regular.copyWith(
-                                    color: AppColorsNew.tertiaryColor300
+                                    color: Color(0xFF212121)
                                   ),
                             ),
                           ),

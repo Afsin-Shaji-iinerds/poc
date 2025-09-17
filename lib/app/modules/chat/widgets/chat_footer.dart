@@ -22,7 +22,7 @@ class ChatFooter extends GetView<ChatController> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: const ShapeDecoration(
-          color: AppColorsNew.darkBackground700,
+          color: Color(0xFF5A2D7E),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16),
@@ -37,7 +37,7 @@ class ChatFooter extends GetView<ChatController> {
                 controller: textController,
                 decoration: InputDecoration(
                   hintText: "Type your message here",
-                  hintStyle: AppTextStylesNew.t2Regular.copyWith(color: AppColorsNew.tertiaryColor400),
+                  hintStyle: AppTextStylesNew.t2Regular.copyWith(color: Color(0xFFFFFFFF).withOpacity(0.5)),
                   border: InputBorder.none,
                   isCollapsed: true,
                   contentPadding: EdgeInsets.zero,
@@ -57,16 +57,19 @@ class ChatFooter extends GetView<ChatController> {
               child: Container(
                 width: 32,
                 height: 32,
-                decoration: const ShapeDecoration(
-                  color: AppColorsNew.tertiaryColor700,
-                  shape: OvalBorder(
-                    side: BorderSide(color: AppColorsNew.tertiaryColor700),
-                  ),
+                decoration:  BoxDecoration(
+                  color: Color(0xFFFFFFFF),
+                  borderRadius: BorderRadius.circular(100),
+                  // shape: OvalBorder(
+                  //   side: BorderSide(
+                  //   //  color: AppColorsNew.tertiaryColor700
+                  //     ),
+                 // ),
                 ),
                 child: Center(
                   child: SvgPicture.asset(
                     IconsConst.sendIcon,
-                    color: AppColorsNew.textPrimary,
+                    color: Color(0xFF5A2D7E),
                     width: 16,
                     height: 16,
                   ),
