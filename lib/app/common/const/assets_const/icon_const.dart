@@ -64,4 +64,30 @@ class IconsConst {
 
   static const String personIcon = 'assets/icons/person.svg';
   static const String padlockIcon = 'assets/icons/padlock 1.svg';
+
+
+
+
+  //new 
+
+  // static const String profileImage1 = 'assets/images/profile.svg';
+  static const String notificationsIcon1 = 'assets/icons/bell 1.svg';
+  static const String doctorIcon = 'assets/icons/doctor (1) 1.svg';
+  static const String dentistIcon = 'assets/icons/dental-checkup 1.svg';
+  static const String trainingIcon = 'assets/icons/presentation (2) 1.svg';
+  static const String arrow1= 'assets/icons/right-arrow 2.svg';
+  static const String medicalIcon1= 'assets/icons/presentation (1) 2.svg';
+  static const String legalIcon1= 'assets/icons/law-scale 1.svg';
+  static const String retirementIcon1= 'assets/icons/retirement 1.svg';
+  static const String healthIcon1= 'assets/icons/payment 1.svg';
+  static const String arrowIcon1= 'assets/icons/right-up 1.svg';
+  static const String lightIcon1= 'assets/icons/lightbulb 1.svg';
+  static const String location_on_outlined= 'assets/icons/pin 1.svg';
+  static const String homeIcon1= 'assets/icons/home 1 (1).svg';
+  static const String benefitsIcon1= 'assets/icons/welfare 1.svg';
+  static const String trainingIcon1= 'assets/icons/education 1.svg';
+  static const String chatIcon1= 'assets/icons/speech-bubble 2.svg';
+  static const String moreIcon1= 'assets/icons/Group 1000011516.svg';
+
+
 }

@@ -84,7 +84,7 @@ child: Obx(() {
                         ],
                       ),
                     ),
-                    bottomNavigationBar: const CustomBottomNav(currentIndex: 1),
+                    bottomNavigationBar: const CustomBottomNav(currentIndex: 3),
                   );
                 }
               }
