@@ -37,10 +37,12 @@ class AppTextStylesNew {
   static TextStyle get h3SemiBold => _base(fontSize: 35.w, fontWeight: FontWeight.w600);
   //H4
   static TextStyle get h4Medium => _base(fontSize: 26.w, fontWeight: FontWeight.w500);
+  static TextStyle get h4Bold => _base(fontSize: 26.w, fontWeight: FontWeight.w700);
   //H5
   static TextStyle get h5Large => _base(fontSize: 22.w, fontWeight: FontWeight.w300);
   static TextStyle get h5Medium => _base(fontSize: 22.w, fontWeight: FontWeight.w500);
   static TextStyle get h5Bold => _base(fontSize: 22.w, fontWeight: FontWeight.bold);
+   static TextStyle get h5SemiBold => _base(fontSize: 22.w, fontWeight: FontWeight.w600);
   //H6
   static TextStyle get h6Medium => _base(fontSize: 20.w, fontWeight: FontWeight.w500);
   static TextStyle get h6Regular => _base(fontSize: 20.w, fontWeight: FontWeight.w400);
