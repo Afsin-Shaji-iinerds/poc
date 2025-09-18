@@ -39,7 +39,7 @@ Future<void> sendMessage(String message) async {
   isChatStarted.value = true;
 
   // Safely get user name from UserDataService
-  final String senderName = "Maria Alex,";
+  final String senderName = "Thomas George,";
   // 1. Add user message
   chatList.insert(
     0,
