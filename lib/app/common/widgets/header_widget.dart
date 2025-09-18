@@ -64,7 +64,7 @@ class CommonHeaderWidget extends StatelessWidget {
                 Text(
                   userName,
                   style: AppTextStylesNew.h6Bold.copyWith(
-                    fontSize: 28,
+                    fontSize: 28.w,
                     fontWeight: FontWeight.w600,
                     color: AppColorsNew.darkBackground500,
                   ),
