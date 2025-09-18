@@ -167,7 +167,7 @@ class _SignInViewState extends State<SignInView> {
                      padding:  EdgeInsets.symmetric(horizontal: 30.w),
                     child: FaceDetectionWidget(),
                   ),
-                  SizedBox(height: 45.w),
+                  SizedBox(height: 60.w),
                   Padding(
                      padding:  EdgeInsets.symmetric(horizontal: 30.w),
                     child:FooterLinks(),

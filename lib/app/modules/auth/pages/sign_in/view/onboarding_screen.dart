@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funds_32bj_poc/app/common/const/assets_const/image_const.dart';
+import 'package:funds_32bj_poc/app/core/utils/size_util/size_util.dart';
 import 'package:funds_32bj_poc/app/modules/auth/pages/sign_in/view/sign_in_view.dart';
 import 'package:get/get.dart';
 
@@ -65,13 +66,13 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 18),
+              const SizedBox(height: 0),
 
               // Illustration area - make big and responsive
               Expanded(
                 child: Center(
                   child: FractionallySizedBox(
-                    widthFactor: 0.95,
+                    widthFactor: 1.1,
                     heightFactor: 0.7,
                     child: Image.asset(
                       illustrationAsset,
@@ -83,13 +84,13 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 6),
+               SizedBox(height: 15.w),
 
               // Pager dots
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(3, (index) {
-                  final bool active = index == 1; // middle dot active
+                  final bool active = index == 0; // middle dot active
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -115,7 +116,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 18),
+               SizedBox(height: 45.w),
 
               // Buttons (Sign In and Sign Up)
               Row(
@@ -159,7 +160,7 @@ class OnboardingScreen extends StatelessWidget {
                           backgroundColor: purple,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(28)),
-                          elevation: 3,
+                         // elevation: 3,
                         ),
                         child: const Text(
                           'Sign Up',
