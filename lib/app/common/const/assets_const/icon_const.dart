@@ -89,6 +89,8 @@ class IconsConst {
   static const String trainingIcon1= 'assets/icons/education 1.svg';
   static const String chatIcon1= 'assets/icons/speech-bubble 2.svg';
   static const String moreIcon1= 'assets/icons/Group 1000011516.svg';
+  static const String trainingIcon2= 'assets/icons/traning2.svg';
+  static const String legalIcon2= 'assets/icons/legal2.svg';
 
 
 }
