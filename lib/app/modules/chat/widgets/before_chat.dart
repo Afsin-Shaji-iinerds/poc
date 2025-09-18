@@ -21,7 +21,7 @@ class BeforeChat extends GetView<ChatController> {
       child: InkWell(
         onTap: () => controller.sendMessage(text),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal:12, vertical: 9),
           decoration: BoxDecoration(
             color:  Color(0xFFE5CBF9),
             //border: Border.all(width: 0.3, color: AppColorsNew.stroke),
@@ -71,9 +71,9 @@ class BeforeChat extends GetView<ChatController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              faqButton("I missed a dose. What should I do now?"),
-              faqButton("Can I take this medication with food?"),
-              faqButton("I have a mild headache. Is this a side effect of my medication?"),
+              faqButton("What is a 5 Star Center?"),
+              faqButton("What do I pay when I use the Emergency Room?"),
+              faqButton("How much will I pay for an eye exam and glasses?"),
             ],
           ),
         ),

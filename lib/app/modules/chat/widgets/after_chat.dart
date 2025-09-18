@@ -58,31 +58,16 @@ class AfterChat extends GetView<ChatController> {
               padding: EdgeInsets.symmetric(vertical: bubbleSpacing),
               child: Row(
                 mainAxisAlignment: isUser
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.end,
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (isUser) ...<Widget>[
-                    CircleAvatar(
-                        radius: avatarSize / 2,
-                        backgroundColor: Color(0xFF5A2D7E), // or any bg color you want
-                        child: Text(
-                      "MA", //   _getUserInitials(),
-                          style: TextStyle(
-                            fontSize: avatarSize * 0.4,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-
-                    SizedBox(width: screenWidth * 0.02),
-                  ],
+                 
                   Flexible(
                     child: Column(
                       crossAxisAlignment: isUser
-                          ? CrossAxisAlignment.start
-                          : CrossAxisAlignment.end,
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
                       children: <Widget>[
                         if (isUser)
                           Transform(
@@ -97,9 +82,10 @@ class AfterChat extends GetView<ChatController> {
                                 color: const Color(0xFFE5CBF9),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(bubbleRadius),
+                                   
                                     bottomLeft: Radius.circular(bubbleRadius),
                                     bottomRight: Radius.circular(bubbleRadius),
+                                    topRight: Radius.circular(bubbleRadius),
                                   ),
                                 ),
                               ),
@@ -125,10 +111,10 @@ class AfterChat extends GetView<ChatController> {
                             color: Color(0xFFE5CBF9),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(bubbleRadius),
-                                topRight: Radius.circular(smallRadius),
-                                bottomLeft: Radius.circular(bubbleRadius),
-                                bottomRight: Radius.circular(smallRadius),
+                                topLeft: Radius.circular(smallRadius),
+                                topRight: Radius.circular(bubbleRadius),
+                                bottomLeft: Radius.circular(smallRadius),
+                                bottomRight: Radius.circular(bubbleRadius),
                               ),
                             ),
                           ),
@@ -166,10 +152,10 @@ class AfterChat extends GetView<ChatController> {
                               color: Color(0xFFE5CBF9),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(bubbleRadius),
-                                  topRight: Radius.circular(smallRadius),
-                                  bottomLeft: Radius.circular(bubbleRadius),
-                                  bottomRight: Radius.circular(smallRadius),
+                                  topLeft: Radius.circular(smallRadius),
+                                  topRight: Radius.circular(bubbleRadius),
+                                  bottomLeft:Radius.circular(smallRadius) ,
+                                  bottomRight:Radius.circular(bubbleRadius) ,
                                 ),
                               ),
                             ),
@@ -185,7 +171,7 @@ class AfterChat extends GetView<ChatController> {
 
                         if (isUser) ...<Widget>[
                           Align(
-                            alignment: Alignment.centerLeft,  // 👈 forces left alignment
+                            alignment: Alignment.centerRight,  // 👈 forces left alignment
                             child: Text(
                               "$senderName ${formatTime(time)}",
                               style: AppTextStylesNew.t5Regular.copyWith(
@@ -206,6 +192,24 @@ class AfterChat extends GetView<ChatController> {
                       ],
                     ),
                   ),
+
+                   if (isUser) ...<Widget>[
+                    SizedBox(width: screenWidth * 0.02),
+                    CircleAvatar(
+                        radius: avatarSize / 2,
+                        backgroundColor: Color(0xFF5A2D7E), // or any bg color you want
+                        child: Text(
+                      "MA", //   _getUserInitials(),
+                          style: TextStyle(
+                            fontSize: avatarSize * 0.4,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+
+                    
+                  ],
                 ],
               ),
             );
