@@ -20,71 +20,75 @@ class ChatView extends GetView<ChatController> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final ChatController controller = Get.put(ChatController());
 
-    return Scaffold(
-      backgroundColor: Color(0xFFF7F7F7),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color:Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(16),
-//                   border: Border.all(color: AppColors.borderGrey1,width: 0.30,
-// ),
-                  
-                ),
-child: Obx(() {
-  return Stack(
-    children: [
-      Column(
-        children: <Widget>[
-          const ChatHeader(),
-          const Divider(color: AppColorsNew.stroke, thickness: 0.50, height: 1),
-          Expanded(
-            child: controller.isChatStarted.value
-                ? const AfterChat()
-                : SingleChildScrollView(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: BeforeChat(screenHeight: screenHeight),
-                  ),
-          ),
-        
-          const ChatFooter(),
-        ],
-      ),
-      
-    ],
-  );
-}),
+    return PopScope(
+      canPop: false,
 
-              // ),
-              //   ),
-              // child: Obx(() {
-              //   return Column(
-              //     children: <Widget>[
-              //       const ChatHeader(),
-              //       const Divider(color: AppColorsNew.stroke, thickness: 0.7, height: 1),
-              //       Expanded(
-              //   child: controller.isChatStarted.value
-              //       ? const AfterChat()
-              //       : SingleChildScrollView(
-              //           padding: const EdgeInsets.only(top: 20),
-              //           child: BeforeChat(screenHeight: screenHeight),
-              //         ),
-              // ),
-              //       const SizedBox(height: 12),
-              //       const ChatFooter(),
-              //     ],
-              //   );
-              // }),
-                            ),
-                          ),
-                        ],
-                      ),
+      child: Scaffold(
+        backgroundColor: Color(0xFFF7F7F7),
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color:Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(16),
+      //                   border: Border.all(color: AppColors.borderGrey1,width: 0.30,
+      // ),
+
+                  ),
+      child: Obx(() {
+        return Stack(
+      children: [
+        Column(
+          children: <Widget>[
+            const ChatHeader(),
+            const Divider(color: AppColorsNew.stroke, thickness: 0.50, height: 1),
+            Expanded(
+              child: controller.isChatStarted.value
+                  ? const AfterChat()
+                  : SingleChildScrollView(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: BeforeChat(screenHeight: screenHeight),
                     ),
-                    bottomNavigationBar: const CustomBottomNav(currentIndex: 3),
-                  );
+            ),
+
+            const ChatFooter(),
+          ],
+        ),
+
+      ],
+        );
+      }),
+
+                // ),
+                //   ),
+                // child: Obx(() {
+                //   return Column(
+                //     children: <Widget>[
+                //       const ChatHeader(),
+                //       const Divider(color: AppColorsNew.stroke, thickness: 0.7, height: 1),
+                //       Expanded(
+                //   child: controller.isChatStarted.value
+                //       ? const AfterChat()
+                //       : SingleChildScrollView(
+                //           padding: const EdgeInsets.only(top: 20),
+                //           child: BeforeChat(screenHeight: screenHeight),
+                //         ),
+                // ),
+                //       const SizedBox(height: 12),
+                //       const ChatFooter(),
+                //     ],
+                //   );
+                // }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      bottomNavigationBar: const CustomBottomNav(currentIndex: 3),
+                    ),
+    );
                 }
               }

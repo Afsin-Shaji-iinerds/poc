@@ -57,125 +57,126 @@ class _SignInViewState extends State<SignInView> {
     return Scaffold(
       backgroundColor: AppColorsNew.secondaryColor100,
       body: SafeArea(
-        child: SingleChildScrollView(
-        //  padding: const EdgeInsets.symmetric(horizontal: 27),
-          child: Form(
-            key: _formKey,
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                   Container(height: 16.w,color:Color(0XFFD1BEEB) ,),
-                  // Logo and SignUp
-                  AuthNavRow(
-                    onTap: (){},
+                      Container(height: 16.w,color:Color(0XFFD1BEEB) ,),
+                      // Logo and SignUp
+                      AuthNavRow(
+                      onTap: (){},
                     isFromSignIn: true,
                   ),
                   Stack(
                     children: [
-                        Container(
+                      Container(
                         height: 25.w,
                         decoration: BoxDecoration(
                           color: Color(0XFFD1BEEB) ,
-                        
+
                         ),
                       ),
                       Container(
                         height: 53.w,
                         decoration: BoxDecoration(
-                          color: AppColorsNew.secondaryColor100,
-                          borderRadius: BorderRadius.circular(20)
+                            color: AppColorsNew.secondaryColor100,
+                            borderRadius: BorderRadius.circular(20)
                         ),
                       ),
                     ],
                   ),
-                
+
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 30.w),
                     child: Text(
-                      AuthConst().signIn,
-                      style: AppTextStylesNew.h3SemiBold.copyWith(color:Color(0XFF5A2D7E) )
+                        AuthConst().signIn,
+                        style: AppTextStylesNew.h3SemiBold.copyWith(color:Color(0XFF5A2D7E) )
                     ),
                   ),
                   const SizedBox(height: 20),
-               Padding(
-                 padding:  EdgeInsets.symmetric(horizontal: 30.w),
-                 child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              EmailPasswordFieldColumn(
-                                usernameController: _usernameController,
-                                passwordController: _passwordController,
-                                showPsdNotifier: _showPsdNotifier,
-                                isPasswordEmptyValidation: true,
-                                validationNotifier: _isButtonEnabledNotifier,
-                 
-                                /// 👇 pass the focus node to username field
-                                usernameFocusNode: _usernameFocusNode,
-                              ),
-                              SizedBox(height: 14.h),
-                              GestureDetector(
-                                onTap: () {
-                                 
-                                },
-                                child: Text(
-                                  AuthConst().forgotPassword,
-                                  style: AppTextStylesNew.t3Regular.copyWith(
-                                    color:Color(0XFF2D68C7),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 25.h),
-                            ValueListenableBuilder<bool>(
-                                  valueListenable: _isButtonEnabledNotifier,
-                                  builder: (BuildContext context, bool isEnabled,
-                                      Widget? child) {
-                                    return PrimaryButton(
-                                      label: AuthConst().signIn,
-                                      //isDisabled: !isEnabled,
-                                      onTap: () {
-                                        // if (_formKey.currentState!.validate()) {
-                                        //   log("validate");
-                                       Get.to(HomeScreenView());
-                                     //   }
-                                      },
-                                    );
-                                  },
-                                )
-                            ],
-                          ),
-               ),
-                SizedBox(height: 15.w),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        EmailPasswordFieldColumn(
+                          usernameController: _usernameController,
+                          passwordController: _passwordController,
+                          showPsdNotifier: _showPsdNotifier,
+                          isPasswordEmptyValidation: true,
+                          validationNotifier: _isButtonEnabledNotifier,
 
-                            Center(
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(horizontal: 30.w),
-                                child: Text.rich(maxLines: 1,
-                                               overflow: TextOverflow.ellipsis,
-                                                    TextSpan(
-                                                      children: <InlineSpan>[
-                                                         TextSpan(text: "Don't have an account? ", style: AppTextStylesNew.t4Regular.copyWith(color:Color(0XFF525252) )),
-                                                        TextSpan(text: "sign up", style: AppTextStylesNew.t4Regular.copyWith(color:Color(0XFF2D68C7) ),),
-                                                    
-                                                      ],
-                                                    ),
-                                                  ),
-                              ),
+                          /// 👇 pass the focus node to username field
+                          usernameFocusNode: _usernameFocusNode,
+                        ),
+                        SizedBox(height: 14.h),
+                        GestureDetector(
+                          onTap: () {
+
+                          },
+                          child: Text(
+                            AuthConst().forgotPassword,
+                            style: AppTextStylesNew.t3Regular.copyWith(
+                              color:Color(0XFF2D68C7),
                             ),
-                         
+                          ),
+                        ),
+                        SizedBox(height: 25.h),
+                        ValueListenableBuilder<bool>(
+                          valueListenable: _isButtonEnabledNotifier,
+                          builder: (BuildContext context, bool isEnabled,
+                              Widget? child) {
+                            return PrimaryButton(
+                              label: AuthConst().signIn,
+                              //isDisabled: !isEnabled,
+                              onTap: () {
+                                // if (_formKey.currentState!.validate()) {
+                                //   log("validate");
+                                Get.to(HomeScreenView());
+                                //   }
+                              },
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.w),
+
+                  Center(
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 30.w),
+                      child: Text.rich(maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        TextSpan(
+                          children: <InlineSpan>[
+                            TextSpan(text: "Don't have an account? ", style: AppTextStylesNew.t4Regular.copyWith(color:Color(0XFF525252) )),
+                            TextSpan(text: "sign up", style: AppTextStylesNew.t4Regular.copyWith(color:Color(0XFF2D68C7) ),),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
                   SizedBox(height: 20.w),
                   Padding(
-                     padding:  EdgeInsets.symmetric(horizontal: 30.w),
+                    padding:  EdgeInsets.symmetric(horizontal: 30.w),
                     child: FaceDetectionWidget(),
                   ),
-                  SizedBox(height: 60.w),
+                  SizedBox(height: 65.w),
+
                   Padding(
                      padding:  EdgeInsets.symmetric(horizontal: 30.w),
                     child:FooterLinks(),
                   ),
                   //const SizedBox(height: 30),
                 ],
-              )
-          ),
+              ),
+          )
         ),
       ),
     );
@@ -201,7 +202,7 @@ class FooterLinks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
       child: Center(
         child: Wrap(
           alignment: WrapAlignment.center,
