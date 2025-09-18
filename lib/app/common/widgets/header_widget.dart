@@ -34,18 +34,36 @@ class CommonHeaderWidget extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: onProfileTap,
-              child: Container(
-                width: 53,
-                height: 53,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                ),
-                child: Image.asset(
-                  Images.profileImage1, // your SVG profile icon
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: 
+                 CircleAvatar(
+                  
+                        radius: 30.w,
+                        backgroundColor: Color(0xFFD1BEEB), // or any bg color you want
+                        child:
+                        Center(child: SvgPicture.asset(Images.profilePic,width: 30.w,))
+                        
+                      //   Text(
+                      // "TG", //   _getUserInitials(),
+                      //     style: TextStyle(
+                      //       fontSize: 18.w,
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.black,
+                      //     ),
+                      //   ),
+                      ),
+              
+              // Container(
+              //   width: 53,
+              //   height: 53,
+              //   decoration: const BoxDecoration(
+              //     shape: BoxShape.circle,
+              //     color: Colors.transparent,
+              //   ),
+              //   child: Image.asset(
+              //     Images.profileImage1, // your SVG profile icon
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
             ),
             SizedBox(width: 12.w),
 
