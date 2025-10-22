@@ -67,6 +67,7 @@ class _ControlsWidgetState extends State<ControlsWidget> {
     // Request a graceful disconnect and do NOT pop the UI here.
     await widget.room.disconnect();
     // The RoomPage's listener (on RoomDisconnectedEvent) should pop the route.
+
   } catch (e, s) {
     log('Error while disconnecting: $e\n$s');
     // Optionally: show an error/snackbar
