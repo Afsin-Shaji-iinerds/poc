@@ -70,19 +70,24 @@ final int _silenceWindowMs = 700;
    // const String url = 'https://livekit.dev.healthkarma.ai/';
     //  const String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODg0NzM0MzMsImlzcyI6IkFQSURHRlk4WVl5a3hnVCIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTI0NzM0MzMsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.UcYcHGL4Nebl7-sPKbDZ4uHc27u5Gi3F6vo_sTCMfRs';
      const String url = 'https://livekit-mp.iinerds.com/';
-      const String token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTQwMDU5MjAsImlzcyI6IkFQSVJCZWJRalhZcGdDQiIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTgwMDU5MjAsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.K6oSxmLzOJ5DV7V5fhkR3OAS0d2hQweBhXHGidW6g4M';
+       String token =await voiceChatController.getToken();
+       log("token name - $token");
+      //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibXkgbmFtZSIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktcm9vbS10ZXN0MTIzIiwiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZX0sInN1YiI6ImlkZW50aXR5IiwiaXNzIjoiQVBJUkJlYlFqWFlwZ0NCIiwibmJmIjoxNzYxMTE0MTE3LCJleHAiOjE3NjExMzU3MTd9.3VfEWw7pqan-dz1QkzxxtAuRf_QGfOfrHcRNgJT2gtI';
+      //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTQwMDU5MjAsImlzcyI6IkFQSVJCZWJRalhZcGdDQiIsIm5hbWUiOiJUZXN0IFVzZXIiLCJuYmYiOjE3NTgwMDU5MjAsInN1YiI6InRlc3QtdXNlciIsInZpZGVvIjp7InJvb20iOiJteS1maXJzdC1yb29tIiwicm9vbUpvaW4iOnRydWV9fQ.K6oSxmLzOJ5DV7V5fhkR3OAS0d2hQweBhXHGidW6g4M';
 
     const roomOptions = RoomOptions(
       defaultAudioCaptureOptions: AudioCaptureOptions(autoGainControl: true),
+      
       adaptiveStream: true,
+      
     );
 
     final room = Room();
     final listener = room.createListener();
+  
 
-    await room.connect(url, token, roomOptions: roomOptions);
-     log('Room connected (sid=${await room.getSid()})');
-
+    await room.connect(url, token, roomOptions: roomOptions, );
+     log('Room connected (sid=${await room.getSid()}) name - ${room.name}');
     setState(() {
       _room = room;
       _listener = listener;
