@@ -154,7 +154,7 @@ class OnboardingScreen extends StatelessWidget {
                       height: 56,
                       child: ElevatedButton(
                         onPressed: () {
-                        Get.to(SignInView());
+                    //    Get.to(SignInView());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: purple,
