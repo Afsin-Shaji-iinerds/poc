@@ -45,7 +45,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                 padding: EdgeInsets.only(
                     top: 17.w, left: 15.w, right: 15.w, bottom: 16.w),
                 child: CommonHeaderWidget(
-                  userName: "Thomas George", // dynamic username if needed
+                  userName: "David Torre", // dynamic username if needed
                   greeting: "Good Morning,", // pass greeting text
                   onProfileTap: () {
                     // handle profile tap

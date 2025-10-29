@@ -43,7 +43,7 @@ class CommonHeaderWidget extends StatelessWidget {
                         Center(child: SvgPicture.asset(Images.profilePic,width: 30.w,))
                         
                       //   Text(
-                      // "TG", //   _getUserInitials(),
+                      // "DT", //   _getUserInitials(),
                       //     style: TextStyle(
                       //       fontSize: 18.w,
                       //       fontWeight: FontWeight.bold,

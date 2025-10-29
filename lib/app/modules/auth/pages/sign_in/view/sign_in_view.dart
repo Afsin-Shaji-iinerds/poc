@@ -1,5 +1,8 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:funds_32bj_poc/app/core/utils/helper/widgets/helper_widgets.dart';
 import 'package:funds_32bj_poc/app/modules/auth/pages/sign_in/view/widgets/auth_nav_row.dart';
 import 'package:funds_32bj_poc/app/modules/auth/pages/sign_in/view/widgets/email_password_column.dart';
 import 'package:funds_32bj_poc/app/modules/auth/pages/sign_in/view/widgets/privacy_terms_with_emergency_column.dart';
@@ -133,10 +136,15 @@ class _SignInViewState extends State<SignInView> {
                               label: AuthConst().signIn,
                               //isDisabled: !isEnabled,
                               onTap: () {
-                                // if (_formKey.currentState!.validate()) {
-                                //   log("validate");
-                                Get.to(HomeScreenView());
-                                //   }
+                                if (_formKey.currentState!.validate()) {
+                                  log("validate");
+                                  if(_usernameController.text.toLowerCase()== "dtorre@seiu32bj.org"&&_passwordController.text=="Test@1234")
+                                   {
+                                  Get.to(HomeScreenView());
+                                  }else{
+                                    HelperWidgets.buildStatusSnackBar(title:"Unable to sign in" ,message: "Invalid username or password.", isSuccess: false);
+                                  }
+                                  }
                               },
                             );
                           },

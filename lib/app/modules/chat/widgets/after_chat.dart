@@ -199,7 +199,7 @@ class AfterChat extends GetView<ChatController> {
                         radius: avatarSize / 2,
                         backgroundColor: Color(0xFF5A2D7E), // or any bg color you want
                         child: Text(
-                      "TG", //   _getUserInitials(),
+                      "DT", //   _getUserInitials(),
                           style: TextStyle(
                             fontSize: avatarSize * 0.4,
                             fontWeight: FontWeight.bold,
